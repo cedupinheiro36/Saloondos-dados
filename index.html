@@ -417,6 +417,19 @@
     .raoni-overlay.show .raoni-img {
       transform: scale(1);
     }
+
+    /* Estilo do Rodapé do Cartaz */
+    .poster-footer {
+      margin-top: 25px;
+      border-top: 2px dashed #5c3a21;
+      padding-top: 15px;
+      font-size: 0.72rem;
+      color: #5c3a21;
+      font-style: italic;
+      line-height: 1.45;
+      text-align: center;
+      font-family: 'Special Elite', Georgia, serif;
+    }
   </style>
 </head>
 <body>
@@ -607,6 +620,11 @@
 
     <!-- Container de Alertas Críticos -->
     <div id="alert-box" class="alert-box"></div>
+
+    <!-- Rodapé do Cartaz -->
+    <div class="poster-footer">
+      Este aplicativo foi desenvolvido por dois cavaleiros mascarados que roubaram o saloon da cidade. Se você tiver alguma pista, a recompensa é de 10 dólares americanos.
+    </div>
   </div>
 
   <script>
@@ -1009,7 +1027,6 @@
             triggerRaoniOverlay();
           }
         } else if (total >= 1 && total <= 5) {
-          // Atualizado com a frase de comemoração curta solicitada
           alertBox.innerHTML = `<span class="crit-success">yeah</span>`;
           playEpicFanfare();
           setTimeout(() => playVoiceAlert("success"), 100);
