@@ -69,44 +69,6 @@
       font-weight: bold;
     }
 
-    /* Cartaz de Esboço ASCII do Chapéu de Cowboy em Braille */
-    .sketch-box {
-      border: 3px solid #5c3a21;
-      background: rgba(92, 58, 33, 0.05);
-      margin: 15px auto;
-      padding: 12px 6px;
-      max-width: 100%;
-      border-radius: 2px;
-      overflow-x: auto; /* Fallback de rolagem caso a tela seja extremamente estreita */
-    }
-
-    .ascii-art {
-      font-family: monospace;
-      font-size: 5px; /* Tamanho otimizado para caber na largura do cartaz */
-      line-height: 1.0;
-      color: #3a2210;
-      white-space: pre;
-      margin: 0 auto;
-      display: block;
-      text-align: left;
-      width: fit-content;
-    }
-
-    /* Ajuste de escala para celulares menores */
-    @media (max-width: 480px) {
-      .ascii-art {
-        font-size: 3.8px;
-      }
-    }
-
-    .wanted-caption {
-      font-family: 'Rye', cursive;
-      font-size: 0.75rem;
-      color: #801818;
-      margin-top: 10px;
-      letter-spacing: 1px;
-    }
-
     /* Seção de Seleção de Dificuldade */
     .difficulty-section {
       margin-bottom: 25px;
@@ -541,30 +503,6 @@
   <div class="wanted-poster">
     <h1 class="poster-header">ROLE A SORTE</h1>
     <p class="poster-subheader">O DESTINO NO VELHO OESTE</p>
-
-    <!-- Cartaz com Esboço em ASCII de um Chapéu de Cowboy em Braille -->
-    <div class="sketch-box">
-      <pre class="ascii-art">
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣿⠿⠿⠿⠿⢿⣶⣤⣤⣤⣤⣶⣶⣶⣦⣤⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠟⠋⠁⣀⣠⣤⣶⡾⠟⠛⢋⣉⣁⡀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠋⠀⠀⠙⠋⠉⠉⠀⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣶⣶⣤⡀⠀⠀⠙⢿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⠷⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣴⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣀⣤⡶⠾⢛⣋⣭⣤⣶⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢀⣴⡾⠟⣩⣴⣾⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢀⣴⡿⢋⣴⣿⣿⣿⣿⣿⡿⠟⠛⢻⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⡀⣀⣿⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢠⣿⡟⣡⣿⣿⣿⠟⠛⠉⠀⠀⠀⢀⣾⣧⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⡶⠶⠾⠟⠛⠛⠛⠛⠛⠋⠉⠉⠙⠛⠛⠻⠿⢷⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀
-⢀⣿⠏⣸⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣤⣤⣤⣤⣤⡶⠾⠟⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⣦⣄⠀⠀⠀⠀
-⣼⡏⣸⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⢷⣄⠀⠀
-⣿⡇⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⠿⠿⢿⣿⣿⣿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣧⠀
-⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧
-⢹⣿⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡴⠟⠋⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣠⣤⣤⣶⣶⣶⣶⣶⠾⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⢀⣿
-⠀⠻⣷⣌⠳⣤⣀⡀⠀⢀⣀⣤⣴⠾⠛⠉⢀⣀⣠⣤⣤⣶⣶⣿⠿⠿⠿⠛⠛⠛⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠙⠛⠛⠿⢶⣦⣤⣴⡾⠟⠁
-⠀⠀⠉⢻⣿⣾⣿⣿⣯⣭⣯⣷⣶⠶⠿⠟⠛⠛⠉⠉⠉⠁⠀
-      </pre>
-      <div class="wanted-caption">RECOMPENSA DE R$ 10,00</div>
-    </div>
 
     <!-- Escolha de Dificuldade -->
     <div class="difficulty-section">
@@ -1048,7 +986,7 @@
       }, 3000);
     }
 
-    // Lógica para compartilhar o resultado das rolagens
+    // Lógica para compartilhar o resultado das rolagens de forma limpa (sem imagem/ASCII anexados) [1]
     shareBtn.addEventListener('click', async () => {
       const result = totalResult.textContent;
       if (result === '...' || result === '-') return;
@@ -1057,26 +995,8 @@
       if (currentDifficulty === 'easy') difficultyText = "Mel na chupeta";
       if (currentDifficulty === 'hard') difficultyText = "MASTER RAONI";
 
-      let textToShare = `Rolei os dados de 1850 no Saloon e tirei o resultado ${result}! 🎲🤠 (Dificuldade: ${difficultyText})\n\n`;
-      
-      // DESENHO EM ASCII DO CHAPÉU DE COWBOY EM BRAILLE NA MENSAGEM DE COMPARTILHAMENTO
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣿⠿⠿⠿⠿⢿⣶⣤⣤⣤⣤⣶⣶⣶⣦⣤⣤⣤⣀⣀\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠟⠋⠁⣀⣠⣤⣶⡾⠟⠛⢋⣉⣁⡀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠿⣶⣤⡀\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠋⠀⠀⠙⠋⠉⠉⠀⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣶⣶⣤⡀⠀⠀⠙⢿⣆\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⢿⡆\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⠷⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣴⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿\n";
-      textToShare += "⠀⠀⠀⠀⠀⠀⠀⣀⣤⡶⠾⢛⣋⣭⣤⣶⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿\n";
-      textToShare += "⠀⠀⠀⠀⢀⣴⡾⠟⣩⣴⣾⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿\n";
-      textToShare += "⠀⠀⢀⣴⡿⢋⣴⣿⣿⣿⣿⣿⡿⠟⠛⢻⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⡀⣀⣿⣀⡀\n";
-      textToShare += "⠀⢠⣿⡟⣡⣿⣿⣿⠟⠛⠉⠀⠀⠀⢀⣾⣧⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⡶⠶⠾⠟⠛⠛⠛⠛⠛⠋⠉⠉⠙⠛⠛⠻⠿⢷⣶⣤⣀\n";
-      textToShare += "⢀⣿⠏⣸⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣤⣤⣤⣤⣤⡶⠾⠟⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⣦⣄\n";
-      textToShare += "⣼⡏⣸⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⢷⣄\n";
-      textToShare += "⣿⡇⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⠿⠿⢿⣿⣿⣿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣧\n";
-      textToShare += "⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧\n";
-      textToShare += "⢹⣿⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡴⠟⠋⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣠⣤⣤⣶⣶⣶⣶⣶⠾⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⢀⣿\n";
-      textToShare += "⠀⠻⣷⣌⠳⣤⣀⡀⠀⢀⣀⣤⣴⠾⠛⠉⢀⣀⣠⣤⣤⣶⣶⣿⠿⠿⠿⠛⠛⠛⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠙⠛⠛⠿⢶⣦⣤⣴⡾⠟n";
-      textToShare += "⠀⠀⠉⢻⣿⣾⣿⣿⣯⣭⣯⣷⣶⠶⠿⠟⠛⠛⠉⠉⠉⠁⠀\n\n";
+      // Texto de compartilhamento direto e limpo, sem imagens ou cabeçalhos redundantes [1]
+      let textToShare = `Rolei os dados de 1850 no Saloon e tirei o resultado ${result}! 🎲🤠 (Dificuldade: ${difficultyText})`;
 
       const totalNum = parseInt(result);
       if (totalNum >= 1 && totalNum <= 5) {
@@ -1085,18 +1005,18 @@
         textToShare += " — Erro Crítico!! Fui baleado no Saloon! 💥💀";
       }
 
-      // Prepara o objeto de compartilhamento básico
+      // Prepara o objeto de compartilhamento básico [1]
       const shareData = {
         title: 'Saloon dos Dados - 1850',
         text: textToShare
       };
 
-      // Só anexa o link se o protocolo for HTTP/HTTPS (estando hospedado online)
+      // Só anexa o link se o protocolo for HTTP/HTTPS (estando hospedado online) [1]
       if (window.location.protocol.startsWith('http')) {
         shareData.url = window.location.href;
       }
 
-      // Tenta utilizar a API de compartilhamento nativa do dispositivo (Mobile)
+      // Tenta utilizar a API de compartilhamento nativa do dispositivo (Mobile) [1]
       if (navigator.share) {
         try {
           await navigator.share(shareData);
@@ -1104,12 +1024,12 @@
           console.log('Erro ao compartilhar:', err);
         }
       } else {
-        // Fallback para desktops: Copiar para área de transferência
+        // Fallback para desktops: Copia o texto limpo para área de transferência [1]
         try {
           let textToCopy = textToShare;
-          // Se for executado via servidor, anexa também a URL
+          // Se for executado via servidor, anexa também a URL do aplicativo [1]
           if (window.location.protocol.startsWith('http')) {
-            textToCopy += `\nLink: ${window.location.href}`;
+            textToCopy += `\nLink do Saloon: ${window.location.href}`;
           }
           await navigator.clipboard.writeText(textToCopy);
           showToast("Resultado copiado para o coldre, parceiro!");
