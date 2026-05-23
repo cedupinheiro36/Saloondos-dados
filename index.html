@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saloon dos Dados - Destino de 1850</title>
+  <!-- Fontes do Google Fonts inspiradas no Velho Oeste -->
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    /* Estilo Geral - Mesa de Saloon de Madeira */
+    body {
+      background: #3e2723;
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        repeating-linear-gradient(0deg, #2d1a12, #2d1a12 40px, #1a0f0a 40px, #1a0f0a 81px);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Special Elite', Georgia, serif;
+      color: #3d2411;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
+    /* Cartaz de Procurado (Wanted Poster) */
+    .wanted-poster {
+      background-color: #ebdcb9;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.15) 100%);
+      border: 14px double #5c3a21;
+      padding: 35px 25px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 50px rgba(92, 58, 33, 0.5);
+      text-align: center;
+      position: relative;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Detalhes de desgaste nas bordas do papel */
+    .wanted-poster::after {
+      content: '';
+      position: absolute;
+      top: -5px; left: -5px; right: -5px; bottom: -5px;
+      border: 1px solid rgba(92, 58, 33, 0.3);
+      pointer-events: none;
+    }
+
+    .poster-header {
+      font-family: 'Rye', cursive;
+      font-size: 2.6rem;
+      margin: 0 0 5px 0;
+      color: #3a2210;
+      text-shadow: 1px 1px 0px #fff;
+      letter-spacing: 1px;
+    }
+
+    .poster-subheader {
+      font-size: 0.95rem;
+      margin: 0 0 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 2px dashed #5c3a21;
+      padding-bottom: 12px;
+      color: #5c3a21;
+      font-weight: bold;
+    }
+
+    /* Seção de Seleção de Dificuldade */
+    .difficulty-section {
+      margin-bottom: 25px;
+      border-top: 2px dashed #5c3a21;
+      padding-top: 15px;
+    }
+
+    .difficulty-label {
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+      color: #5c3a21;
+      text-transform: uppercase;
+    }
+
+    .difficulty-buttons {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .diff-btn {
+      background-color: #5c3a21;
+      color: #ebdcb9;
+      font-family: 'Special Elite', Georgia, serif;
+      font-size: 0.72rem;
+      font-weight: bold;
+      padding: 8px 10px;
+      border: 2px solid #3a2210;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+    }
+
+    .diff-btn:hover {
+      background-color: #70472e;
+    }
+
+    /* Estado selecionado: marca de ferro quente brilhante */
+    .diff-btn.active-diff {
+      background-color: #801818;
+      color: #ffd700;
+      border-color: #ffd700;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.5), 0 0 8px rgba(255, 215, 0, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Bandeja de Feltro e Couro (Dice Tray) */
+    .dice-tray {
+      background: radial-gradient(circle, #0e301d 0%, #06190f 100%);
+      border: 10px solid #2a1608;
+      border-radius: 12px;
+      padding: 20px 10px;
+      margin-bottom: 25px;
+      box-shadow: inset 0 10px 20px rgba(0,0,0,0.85), 0 5px 12px rgba(0,0,0,0.5);
+      position: relative;
+      height: 170px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Detalhe da costura de couro na borda da bandeja */
+    .dice-tray::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border: 2px dashed #7a5030;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .die-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .die-label {
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      letter-spacing: 1.5px;
+      color: #ebdcb9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+
+    /* SVG do Dado D10 com efeito de sombra realística de polígono */
+    .d10-svg {
+      width: 105px;
+      height: 126px;
+      filter: drop-shadow(0px 12px 14px rgba(0,0,0,0.85));
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Estilização das arestas do Dado */
+    .facet {
+      stroke-linejoin: round;
+    }
+
+    /* Brilhos e sombras nas arestas para simular acabamento de bisel (bevel) físico */
+    .d10-tens .facet { stroke: rgba(0, 0, 0, 0.45); stroke-width: 0.7; }
+    .d10-tens .f-top-left { stroke: rgba(255, 255, 255, 0.25); stroke-width: 0.9; }
+    .d10-tens .f-bottom-right { stroke: rgba(0, 0, 0, 0.8); stroke-width: 1.3; }
+
+    .d10-units .facet { stroke: rgba(0, 0, 0, 0.25); stroke-width: 0.7; }
+    .d10-units .f-top-left { stroke: rgba(255, 255, 255, 0.75); stroke-width: 0.9; }
+    .d10-units .f-bottom-right { stroke: rgba(0, 0, 0, 0.45); stroke-width: 1.3; }
+
+    /* Estilo das Numerações das Faces */
+    .main-num {
+      font-family: 'Rye', cursive;
+      font-size: 20px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    /* Sombra de entalhe (offset inverso para parecer gravado) */
+    .main-num-shadow {
+      font-family: 'Rye', cursive;
+      font-size: 20px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .side-num {
+      font-family: 'Rye', cursive;
+      font-size: 11px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      opacity: 0.4;
+    }
+
+    /* Animações Complexas de Rolagem e Salto 3D */
+    @keyframes roll-3d-tens {
+      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) translateY(0); }
+      15% { transform: rotateX(180deg) rotateY(160deg) rotateZ(-45deg) scale(1.45) translateY(-35px); }
+      40% { transform: rotateX(360deg) rotateY(320deg) rotateZ(120deg) scale(0.8) translateY(15px); }
+      70% { transform: rotateX(220deg) rotateY(500deg) rotateZ(-90deg) scale(1.2) translateY(-8px); }
+      100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) translateY(0); }
+    }
+
+    @keyframes roll-3d-units {
+      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) translateY(0); }
+      18% { transform: rotateX(-160deg) rotateY(-180deg) rotateZ(55deg) scale(1.5) translateY(-40px); }
+      45% { transform: rotateX(-320deg) rotateY(-360deg) rotateZ(-140deg) scale(0.78) translateY(20px); }
+      73% { transform: rotateX(-200deg) rotateY(-520deg) rotateZ(95deg) scale(1.22) translateY(-12px); }
+      100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) translateY(0); }
+    }
+
+    .rolling-tens {
+      animation: roll-3d-tens 0.9s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+    }
+
+    .rolling-units {
+      animation: roll-3d-units 0.9s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+    }
+
+    /* Botão de Rolar */
+    .roll-btn {
+      background-color: #801818;
+      color: #ebdcb9;
+      font-family: 'Rye', cursive;
+      font-size: 1.3rem;
+      padding: 14px 28px;
+      border: 4px solid #4a0d0d;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #300505, 0 8px 15px rgba(0,0,0,0.6);
+      transition: all 0.05s ease;
+      letter-spacing: 1.5px;
+      width: 100%;
+      max-width: 280px;
+      outline: none;
+    }
+
+    .roll-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #300505, 0 3px 6px rgba(0,0,0,0.6);
+    }
+
+    .roll-btn:hover {
+      background-color: #941f1f;
+    }
+
+    /* Área do Resultado */
+    .result-section {
+      margin-top: 20px;
+      border-top: 2px dashed #5c3a21;
+      padding-top: 15px;
+    }
+
+    .result-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #5c3a21;
+      margin-bottom: 8px;
+    }
+
+    .result-badge {
+      font-family: 'Rye', cursive;
+      font-size: 3.5rem;
+      color: #2b180a;
+      background: rgba(92, 58, 33, 0.08);
+      display: inline-block;
+      padding: 5px 30px;
+      border-radius: 4px;
+      border: 1px solid rgba(92, 58, 33, 0.25);
+      min-width: 100px;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pop-animation {
+      transform: scale(1.2);
+    }
+
+    /* Alertas Críticos */
+    .alert-box {
+      margin-top: 15px;
+      min-height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Erro Crítico (96 - 100) */
+    .crit-fail {
+      font-family: 'Rye', cursive;
+      font-size: 2.2rem;
+      color: #b31c1c;
+      text-shadow: 2px 2px 0px #fff, 0 0 10px rgba(179, 28, 28, 0.4);
+      animation: fail-jitter 0.2s infinite alternate;
+    }
+
+    @keyframes fail-jitter {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      100% { transform: translate(-1px, -1px) rotate(1.5deg); }
+    }
+
+    /* Acerto Crítico (1 - 5) */
+    .crit-success {
+      font-family: 'Rye', cursive;
+      font-size: 2.2rem;
+      color: #cca410;
+      text-shadow: 2px 2px 0px #3d2411, 0 0 15px rgba(255, 215, 0, 0.6);
+      animation: success-bounce 0.8s infinite alternate;
+    }
+
+    @keyframes success-bounce {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-5px) scale(1.05); }
+    }
+
+    /* Marcas Dinâmicas no Cartaz (Tiros e Estrelas) */
+    .bullet-hole {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #151515;
+      border-radius: 50%;
+      box-shadow: inset 0 0 6px #000, 0 0 5px rgba(139, 90, 43, 0.8);
+      opacity: 0.9;
+      pointer-events: none;
+      animation: gunshot-impact 0.15s ease-out;
+      z-index: 10;
+    }
+
+    .bullet-hole::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px; right: -6px; bottom: -6px;
+      border: 1px dashed rgba(0,0,0,0.25);
+      border-radius: 50%;
+    }
+
+    @keyframes gunshot-impact {
+      0% { transform: scale(3.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 0.9; }
+    }
+
+    .sheriff-badge {
+      position: absolute;
+      font-size: 28px;
+      color: #ffd700;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 1px 1px 2px rgba(0,0,0,0.4);
+      pointer-events: none;
+      animation: star-spawn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      z-index: 10;
+    }
+
+    @keyframes star-spawn {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      100% { transform: scale(1) rotate(360deg); opacity: 0.95; }
+    }
+
+    /* Painéis de Overlay (Fundo escuro para exibição de imagens) */
+    .raoni-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.92);
+      display: none; /* Controlado dinamicamente no JS */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .raoni-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .raoni-img {
+      max-width: 90%;
+      max-height: 80vh;
+      border: 8px double #801818;
+      box-shadow: 0 0 35px rgba(128, 24, 24, 0.9);
+      border-radius: 4px;
+      transform: scale(0.8);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Borda dourada específica para o overlay de Acerto Crítico */
+    #success-overlay .raoni-img {
+      border-color: #ffd700;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+    }
+
+    .raoni-overlay.show .raoni-img {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay para Master Raoni Mode (Erro Crítico) -->
+  <div id="raoni-overlay" class="raoni-overlay">
+    <img src="https://br.web.img3.acsta.net/c_310_420/pictures/15/12/07/17/12/030806.jpg" alt="Master Raoni Crit Fail" class="raoni-img">
+  </div>
+
+  <!-- Overlay para Acerto Crítico (Qualquer dificuldade) -->
+  <div id="success-overlay" class="raoni-overlay">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzQemc3JP2Hujz1yKeYa_sTdVThFqEl3LR2g&s" alt="Crit Success Image" class="raoni-img">
+  </div>
+
+  <div class="wanted-poster">
+    <h1 class="poster-header">ROLE A SORTE</h1>
+    <p class="poster-subheader">O DESTINO NO VELHO OESTE</p>
+
+    <!-- Escolha de Dificuldade -->
+    <div class="difficulty-section">
+      <div class="difficulty-label">Sorte do Destino</div>
+      <div class="difficulty-buttons">
+        <button class="diff-btn" data-difficulty="easy">Mel na chupeta</button>
+        <button class="diff-btn active-diff" data-difficulty="normal">Vida que segue</button>
+        <button class="diff-btn" data-difficulty="hard">MASTER RAONI</button>
+      </div>
+    </div>
+
+    <!-- Bandeja de jogo (Dice Tray) contendo os dados -->
+    <div class="dice-tray">
+      
+      <!-- Dado de Dezena -->
+      <div class="die-wrapper">
+        <span class="die-label">DEZENA</span>
+        <svg id="die-tens" class="d10-svg d10-tens" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Filtro Procedural de Textura de Madeira Realista (Mogno/Jacarandá) -->
+            <filter id="wood-grain" x="0" y="0" width="100" height="120" filterUnits="userSpaceOnUse">
+              <feTurbulence type="fractalNoise" baseFrequency="0.015 0.12" numOctaves="3" result="noise" />
+              <feColorMatrix type="matrix" values="
+                0.65  0    0    0   0.22
+                0    0.38  0    0   0.12
+                0    0    0.20  0   0.05
+                0    0    0    0.35 0" result="colorNoise"/>
+              <feComposite operator="in" in2="SourceGraphic" result="grain"/>
+              <feBlend mode="multiply" in="SourceGraphic" in2="grain"/>
+            </filter>
+
+            <!-- Profundidade de entalhe (Sombreamento escuro interno para números) -->
+            <filter id="engrave-depth" x="-10%" y="-10%" width="120%" height="120%">
+              <feOffset dx="-0.8" dy="-0.8" in="SourceAlpha" result="offset" />
+              <feGaussianBlur stdDeviation="0.5" result="blur" />
+              <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.85 0" result="shadow" />
+              <feBlend in="SourceGraphic" in2="shadow" mode="multiply" />
+            </filter>
+
+            <!-- Gradientes para simular iluminação direcional 3D nas facetas de madeira -->
+            <linearGradient id="wood-hl" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#be8757" />
+              <stop offset="100%" stop-color="#6f4221" />
+            </linearGradient>
+            <linearGradient id="wood-med" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#804f29" />
+              <stop offset="100%" stop-color="#462710" />
+            </linearGradient>
+            <linearGradient id="wood-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4b2b13" />
+              <stop offset="100%" stop-color="#211005" />
+            </linearGradient>
+            <linearGradient id="wood-vdark" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2d1709" />
+              <stop offset="100%" stop-color="#100500" />
+            </linearGradient>
+            <linearGradient id="wood-center" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="#8e5831" />
+              <stop offset="30%" stop-color="#6a3f1f" />
+              <stop offset="100%" stop-color="#4c2c13" />
+            </linearGradient>
+
+            <!-- Brilho de Resina Polida (Glossy specularity) -->
+            <linearGradient id="gloss-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Grupo de Facetas sob textura de madeira -->
+          <g filter="url(#wood-grain)">
+            <polygon points="15,35 22,75 5,70" class="facet f-far-left" fill="url(#wood-hl)" />
+            <polygon points="85,35 95,70 78,75" class="facet f-far-right" fill="url(#wood-dark)" />
+            <polygon points="5,70 22,75 50,115" class="facet f-bottom-left" fill="url(#wood-dark)" />
+            <polygon points="95,70 78,75 50,115" class="facet f-bottom-right" fill="url(#wood-vdark)" />
+            <polygon points="50,5 50,45 22,75 15,35" class="facet f-top-left" fill="url(#wood-hl)" />
+            <polygon points="50,5 85,35 78,75 50,45" class="facet f-top-right" fill="url(#wood-med)" />
+            <polygon points="50,45 78,75 50,115 22,75" class="facet f-center-main" fill="url(#wood-center)" />
+          </g>
+
+          <!-- Camada de reflexão brilhante (Efeito Resina) -->
+          <path d="M 50,5 L 85,35 L 78,75 L 50,45 Z" fill="url(#gloss-shine)" pointer-events="none" />
+          <path d="M 15,35 L 50,45 L 22,75 Z" fill="url(#gloss-shine)" opacity="0.4" pointer-events="none" />
+
+          <!-- Números de Perspectiva Secundários -->
+          <text x="34" y="43" class="side-num s-left" transform="rotate(-15 34 43)" fill="#bba080">30</text>
+          <text x="66" y="43" class="side-num s-right" transform="rotate(15 66 43)" fill="#bba080">80</text>
+
+          <!-- Técnica de renderização dupla de baixo relevo entalhado para número principal -->
+          <text x="50.8" y="86.8" class="main-num-shadow" fill="#ffdf70" opacity="0.75">00</text>
+          <text x="50" y="86" class="main-num val-display" filter="url(#engrave-depth)" fill="#331800">00</text>
+        </svg>
+      </div>
+
+      <!-- Dado de Unidade -->
+      <div class="die-wrapper">
+        <span class="die-label">UNIDADE</span>
+        <svg id="die-units" class="d10-svg d10-units" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Filtro Procedural de Textura de Marfim/Osso Realista (Poro e Speckles) -->
+            <filter id="bone-grain" x="0" y="0" width="100" height="120" filterUnits="userSpaceOnUse">
+              <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="2" result="noise" />
+              <feColorMatrix type="matrix" values="
+                0.95  0    0    0   0.04
+                0    0.90  0    0   0.04
+                0    0    0.80  0   0.04
+                0    0    0    0.16 0" result="colorNoise"/>
+              <feComposite operator="in" in2="SourceGraphic" result="grain"/>
+              <feBlend mode="multiply" in="SourceGraphic" in2="grain"/>
+            </filter>
+
+            <!-- Gradientes para simular iluminação direcional 3D nas facetas de marfim -->
+            <linearGradient id="ivory-hl" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#ebe3cf" />
+            </linearGradient>
+            <linearGradient id="ivory-med" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f5ecdb" />
+              <stop offset="100%" stop-color="#cfc3a6" />
+            </linearGradient>
+            <linearGradient id="ivory-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d9ccad" />
+              <stop offset="100%" stop-color="#ab9d7d" />
+            </linearGradient>
+            <linearGradient id="ivory-vdark" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#bdae91" />
+              <stop offset="100%" stop-color="#7e745b" />
+            </linearGradient>
+            <linearGradient id="ivory-center" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="#faf2dc" />
+              <stop offset="30%" stop-color="#e6dcbf" />
+              <stop offset="100%" stop-color="#c6ba9c" />
+            </linearGradient>
+          </defs>
+
+          <!-- Grupo de Facetas sob textura de osso -->
+          <g filter="url(#bone-grain)">
+            <polygon points="15,35 22,75 5,70" class="facet f-far-left" fill="url(#ivory-hl)" />
+            <polygon points="85,35 95,70 78,75" class="facet f-far-right" fill="url(#ivory-dark)" />
+            <polygon points="5,70 22,75 50,115" class="facet f-bottom-left" fill="url(#ivory-dark)" />
+            <polygon points="95,70 78,75 50,115" class="facet f-bottom-right" fill="url(#ivory-vdark)" />
+            <polygon points="50,5 50,45 22,75 15,35" class="facet f-top-left" fill="url(#ivory-hl)" />
+            <polygon points="50,5 85,35 78,75 50,45" class="facet f-top-right" fill="url(#ivory-med)" />
+            <polygon points="50,45 78,75 50,115 22,75" class="facet f-center-main" fill="url(#ivory-center)" />
+          </g>
+
+          <!-- Camada de reflexão brilhante (Efeito Resina) -->
+          <path d="M 50,5 L 85,35 L 78,75 L 50,45 Z" fill="url(#gloss-shine)" opacity="0.8" pointer-events="none" />
+          <path d="M 15,35 L 50,45 L 22,75 Z" fill="url(#gloss-shine)" opacity="0.5" pointer-events="none" />
+
+          <!-- Números de Perspectiva Secundários -->
+          <text x="34" y="43" class="side-num s-left" transform="rotate(-15 34 43)" fill="#8e8164">4</text>
+          <text x="66" y="43" class="side-num s-right" transform="rotate(15 66 43)" fill="#8e8164">2</text>
+
+          <!-- Technique de renderização dupla de baixo relevo entalhado para número principal -->
+          <text x="50.6" y="86.6" class="main-num-shadow" fill="#ffffff" opacity="0.95">0</text>
+          <text x="50" y="86" class="main-num val-display" filter="url(#engrave-depth)" fill="#680b0b">0</text>
+        </svg>
+      </div>
+
+    </div>
+
+    <!-- Botão de Ação -->
+    <button id="roll-btn" class="roll-btn">SACAR E ROLAR!</button>
+
+    <!-- Exibição do Resultado Somado -->
+    <div class="result-section">
+      <div class="result-title">RESULTADO TOTAL</div>
+      <div id="total-result" class="result-badge">-</div>
+    </div>
+
+    <!-- Container de Alertas Críticos -->
+    <div id="alert-box" class="alert-box"></div>
+  </div>
+
+  <script>
+    const rollBtn = document.getElementById('roll-btn');
+    const dieTens = document.getElementById('die-tens');
+    const dieUnits = document.getElementById('die-units');
+    const totalResult = document.getElementById('total-result');
+    const alertBox = document.getElementById('alert-box');
+    const poster = document.querySelector('.wanted-poster');
+    const diffButtons = document.querySelectorAll('.diff-btn');
+    const raoniOverlay = document.getElementById('raoni-overlay');
+    const successOverlay = document.getElementById('success-overlay');
+
+    let audioCtx = null;
+    let voices = [];
+    let currentDifficulty = 'normal'; // Dificuldade padrão
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    // Carregamento assíncrono e escuta de vozes nativas
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        voices = window.speechSynthesis.getVoices();
+      };
+      voices = window.speechSynthesis.getVoices();
+    }
+
+    // Listener para botões de dificuldade
+    diffButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        diffButtons.forEach(b => b.classList.remove('active-diff'));
+        e.currentTarget.classList.add('active-diff');
+        currentDifficulty = e.currentTarget.dataset.difficulty;
+        initAudio(); // Ativa contexto de áudio preventivamente
+      });
+    });
+
+    // Algoritmo para selecionar a voz masculina em inglês nativo mais apropriada
+    function getMaleVoice() {
+      if (!('speechSynthesis' in window) || voices.length === 0) return null;
+
+      const maleKeywords = ['david', 'mark', 'george', 'alex', 'daniel', 'fred', 'sam', 'guy', 'male', 'en-us-x-sfg#male', 'males', 'en-us-x-iom-local'];
+      const enVoices = voices.filter(v => v.lang.startsWith('en'));
+      
+      let bestVoice = null;
+      let bestScore = -1;
+      
+      enVoices.forEach(v => {
+        let score = 0;
+        const nameLower = v.name.toLowerCase();
+        
+        maleKeywords.forEach(kw => {
+          if (nameLower.includes(kw)) {
+            score += 10;
+          }
+        });
+        
+        if (v.localService) {
+          score += 2;
+        }
+        
+        if (score > bestScore) {
+          bestScore = score;
+          bestVoice = v;
+        }
+      });
+      
+      if (bestScore > 0) {
+        return bestVoice;
+      }
+      return enVoices.length > 0 ? enVoices[0] : null;
+    }
+
+    // Som sintético do girar dos dados (ruído branco metálico)
+    function playRollSound() {
+      initAudio();
+      if (!audioCtx) return;
+
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+          const bufferSize = audioCtx.sampleRate * 0.04; 
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let j = 0; j < bufferSize; j++) {
+            data[j] = Math.random() * 2 - 1;
+          }
+
+          const noise = audioCtx.createBufferSource();
+          noise.buffer = buffer;
+
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.value = 1200;
+
+          const gain = audioCtx.createGain();
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+          noise.start();
+        }, i * 120);
+      }
+    }
+
+    // Som de tiro de revólver para falhas críticas
+    function playGunshot() {
+      initAudio();
+      if (!audioCtx) return;
+
+      const duration = 0.6;
+      const bufferSize = audioCtx.sampleRate * duration;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const noiseFilter = audioCtx.createBiquadFilter();
+      noiseFilter.type = 'lowpass';
+      noiseFilter.frequency.value = 600;
+
+      const noiseGain = audioCtx.createGain();
+      noiseGain.gain.setValueAtTime(0.6, audioCtx.currentTime);
+      noiseGain.gain.exponentialRampToValueAtTime(0.01, DynamicTime(duration));
+
+      function DynamicTime(val) { return audioCtx.currentTime + val; }
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(audioCtx.destination);
+
+      const osc = audioCtx.createOscillator();
+      const oscGain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(10, DynamicTime(0.25));
+
+      oscGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+      oscGain.gain.exponentialRampToValueAtTime(0.01, DynamicTime(0.25));
+
+      osc.connect(oscGain);
+      oscGain.connect(audioCtx.destination);
+
+      noise.start();
+      osc.start();
+      osc.stop(DynamicTime(duration));
+    }
+
+    // Som sintético de fanfarra triunfante de metais (Trompetes)
+    function playEpicFanfare() {
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const chord = [261.63, 329.63, 392.00, 523.25];
+      
+      chord.forEach((freq) => {
+        [-5, 5].forEach((detune) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          const filter = audioCtx.createBiquadFilter();
+
+          osc.type = 'sawtooth'; 
+          osc.frequency.setValueAtTime(freq, now);
+          osc.detune.setValueAtTime(detune, now);
+
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(2200, now);
+          filter.frequency.exponentialRampToValueAtTime(700, now + 0.35);
+
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.12, now + 0.04); 
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(now);
+          osc.stop(now + 1.0);
+        });
+      });
+    }
+
+    // Sintetizador de voz com mapeamento fonético prolongado e motor de voz masculina
+    function playVoiceAlert(type) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); 
+        
+        let phoneticText = "";
+        let pitchVal = 1.0;
+        let rateVal = 1.0;
+        
+        if (type === "fail") {
+          phoneticText = "OH MY GOD";
+          pitchVal = 0.8; 
+          rateVal = 0.85; 
+        } else {
+          // Escrita fonética prolongada e masculinizada para simular o "yeah" arrastado
+          phoneticText = "Yeeeeeaaaaahhhhh!!!"; 
+          pitchVal = 0.78; // Tom reduzido (mais grave)
+          rateVal = 0.72;  // Ritmo arrastado
+        }
+
+        const utterance = new SpeechSynthesisUtterance(phoneticText);
+        utterance.lang = 'en-US'; 
+        utterance.volume = 1.0; 
+        utterance.pitch = pitchVal;
+        utterance.rate = rateVal;
+
+        if (type === "success") {
+          const maleVoice = getMaleVoice();
+          if (maleVoice) {
+            utterance.voice = maleVoice;
+          }
+        } else {
+          const anyEnVoice = voices.find(v => v.lang.startsWith('en'));
+          if (anyEnVoice) utterance.voice = anyEnVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Exibe a imagem do Master Raoni e remove após 2 segundos
+    function triggerRaoniOverlay() {
+      raoniOverlay.style.display = 'flex';
+      
+      // Pequeno timeout para engatar o fade-in do CSS
+      setTimeout(() => {
+        raoniOverlay.classList.add('show');
+      }, 15);
+
+      // Desativa e esconde após 2 segundos (2000ms)
+      setTimeout(() => {
+        raoniOverlay.classList.remove('show');
+        // Espera a transição de opacidade do CSS terminar antes de setar display none
+        setTimeout(() => {
+          raoniOverlay.style.display = 'none';
+        }, 300);
+      }, 2000);
+    }
+
+    // Exibe a imagem de comemoração do Acerto Crítico e remove após 2 segundos
+    function triggerSuccessOverlay() {
+      successOverlay.style.display = 'flex';
+      
+      setTimeout(() => {
+        successOverlay.classList.add('show');
+      }, 15);
+
+      // Desativa e esconde após 2 segundos (2000ms)
+      setTimeout(() => {
+        successOverlay.classList.remove('show');
+        // Espera a transição de opacidade do CSS terminar antes de setar display none
+        setTimeout(() => {
+          successOverlay.style.display = 'none';
+        }, 300);
+      }, 2000);
+    }
+
+    // Cria furos de balas ou estrelas de xerife no cartaz em locais aleatórios
+    function spawnDecoElement(className, content) {
+      const rect = poster.getBoundingClientRect();
+      const element = document.createElement('div');
+      element.className = className;
+      if (content) element.innerHTML = content;
+
+      const x = Math.random() * (rect.width - 60) + 30;
+      const y = Math.random() * (rect.height - 120) + 60;
+
+      element.style.left = `${x}px`;
+      element.style.top = `${y}px`;
+      poster.appendChild(element);
+    }
+
+    // Retorna valores alternativos para as faces adjacentes secundárias do dado
+    function getRandomAlternative(excludeVal, isTens) {
+      const list = isTens ? [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      const filtered = list.filter(n => n !== excludeVal);
+      return filtered[Math.floor(Math.random() * filtered.length)];
+    }
+
+    // Evento principal para rolar os dados
+    rollBtn.addEventListener('click', () => {
+      // Remove elementos decorativos da rolagem anterior
+      document.querySelectorAll('.bullet-hole, .sheriff-badge').forEach(el => el.remove());
+
+      // Ativa efeito de rolagem espacial 3D diferenciada para cada dado
+      dieTens.classList.add('rolling-tens');
+      dieUnits.classList.add('rolling-units');
+      totalResult.classList.remove('pop-animation');
+      totalResult.textContent = '...';
+      alertBox.innerHTML = '';
+
+      // Toca som de impacto
+      playRollSound();
+
+      setTimeout(() => {
+        // Encerra as animações de giro 3D
+        dieTens.classList.remove('rolling-tens');
+        dieUnits.classList.remove('rolling-units');
+
+        // MATEMÁTICA DAS PROBABILIDADES DE ACORDO COM A DIFICULDADE SELECIONADA
+        const rand = Math.random();
+        let total;
+
+        if (currentDifficulty === 'easy') {
+          // Mel na chupeta: 60% acerto crítico, 5% erro crítico, 35% normal
+          if (rand < 0.60) {
+            total = Math.floor(Math.random() * 5) + 1; // 1 a 5 (60% de chance)
+          } else if (rand < 0.65) {
+            total = Math.floor(Math.random() * 5) + 96; // 96 a 100 (5% de chance)
+          } else {
+            total = Math.floor(Math.random() * 90) + 6; // 6 a 95 (35% de chance)
+          }
+        } else if (currentDifficulty === 'normal') {
+          // Vida que segue: 10% acerto crítico, 10% erro crítico, 80% normal
+          if (rand < 0.10) {
+            total = Math.floor(Math.random() * 5) + 1;
+          } else if (rand < 0.20) {
+            total = Math.floor(Math.random() * 5) + 96;
+          } else {
+            total = Math.floor(Math.random() * 90) + 6;
+          }
+        } else if (currentDifficulty === 'hard') {
+          // MASTER RAONI: 5% acerto crítico, 60% erro crítico, 35% normal
+          if (rand < 0.05) {
+            total = Math.floor(Math.random() * 5) + 1;
+          } else if (rand < 0.65) {
+            total = Math.floor(Math.random() * 5) + 96;
+          } else {
+            total = Math.floor(Math.random() * 90) + 6;
+          }
+        }
+
+        // Desconstrói o total calculado em valores de dezena e unidade para exibição gráfica
+        let valTens, valUnits;
+        if (total === 100) {
+          valTens = 0;
+          valUnits = 0;
+        } else {
+          valTens = Math.floor(total / 10) * 10;
+          valUnits = total % 10;
+        }
+
+        // Obtém números adjacentes aleatórios para as outras perspectivas dos dados
+        const altTensLeft = getRandomAlternative(valTens, true);
+        const altTensRight = getRandomAlternative(valTens, true);
+        const altUnitsLeft = getRandomAlternative(valUnits, false);
+        const altUnitsRight = getRandomAlternative(valUnits, false);
+
+        // Aplica rotação e deslocamento aleatório de pouso físico dentro da bandeja
+        const offsetTensX = Math.random() * 16 - 8;
+        const offsetTensY = Math.random() * 16 - 8;
+        const rotateTens = Math.random() * 12 - 6;
+        dieTens.style.transform = `translate(${offsetTensX}px, ${offsetTensY}px) rotate(${rotateTens}deg)`;
+
+        const offsetUnitsX = Math.random() * 16 - 8;
+        const offsetUnitsY = Math.random() * 16 - 8;
+        const rotateUnits = Math.random() * 12 - 6;
+        dieUnits.style.transform = `translate(${offsetUnitsX}px, ${offsetUnitsY}px) rotate(${rotateUnits}deg)`;
+
+        // Atualização das numerações do Dado de Dezenas (Madeira)
+        dieTens.querySelector('.val-display').textContent = valTens === 0 ? "00" : valTens;
+        dieTens.querySelector('.main-num-shadow').textContent = valTens === 0 ? "00" : valTens;
+        dieTens.querySelector('.s-left').textContent = altTensLeft === 0 ? "00" : altTensLeft;
+        dieTens.querySelector('.s-right').textContent = altTensRight === 0 ? "00" : altTensRight;
+
+        // Atualização das numerações do Dado de Unidades (Marfim)
+        dieUnits.querySelector('.val-display').textContent = valUnits;
+        dieUnits.querySelector('.main-num-shadow').textContent = valUnits;
+        dieUnits.querySelector('.s-left').textContent = altUnitsLeft;
+        dieUnits.querySelector('.s-right').textContent = altUnitsRight;
+
+        // Exibe o total com efeito pop de impacto
+        totalResult.textContent = total;
+        totalResult.classList.add('pop-animation');
+
+        // Tratamento de Acertos e Erros Críticos
+        if (total >= 96 && total <= 100) {
+          alertBox.innerHTML = `<span class="crit-fail">ERRO CRÍTICO!!</span>`;
+          playGunshot();
+          setTimeout(() => playVoiceAlert("fail"), 120);
+          for (let i = 0; i < 5; i++) {
+            setTimeout(() => spawnDecoElement('bullet-hole'), i * 85);
+          }
+          
+          // Se o Erro Crítico acontecer sob o modo MASTER RAONI, aciona a tela cheia
+          if (currentDifficulty === 'hard') {
+            triggerRaoniOverlay();
+          }
+        } else if (total >= 1 && total <= 5) {
+          // Atualizado com a frase de comemoração curta solicitada
+          alertBox.innerHTML = `<span class="crit-success">yeah</span>`;
+          playEpicFanfare();
+          setTimeout(() => playVoiceAlert("success"), 100);
+          for (let i = 0; i < 5; i++) {
+            setTimeout(() => spawnDecoElement('sheriff-badge', '★'), i * 85);
+          }
+          
+          // Aciona o painel de exibição de comemoração do acerto crítico
+          triggerSuccessOverlay();
+        }
+      }, 900); // Sincronia de rotação dos dados
+    });
+  </script>
+</body>
+</html>
